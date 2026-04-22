@@ -10,14 +10,38 @@ provider:
   runtime: nodejs20.x
   lambdaHashingVersion: '20201221'
   region: us-west-2
-  # Uncomment to easily set up a custom domain. Read the docs for more details:
-  # https://www.serverless.com/framework/docs/providers/aws/guide/domains
-  # domain: api.example.com
+  iamRoleStatements:
+    - Effect: Allow
+      Acction:
+        - dynamodb:*
+      Resource:
+        - arn:aws:dynamodb:us-west-2:793282269851:table/TaskTable
 
 functions:
   hello:
-    handler: handler.hello
+    handler: src/first.hello
     events:
       - httpApi:
           path: /
           method: get
+
+  createTask:
+    handler: src/addTask.addTask
+    events:
+      - httpApi:
+          path: /task
+          method: post
+
+resources:
+  Resources:
+    TaskTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: TaskTable
+        BillingMode: PAY_PER_REQUEST
+        AtributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
