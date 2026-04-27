@@ -17,8 +17,8 @@ const getTask = async (event) => {
         const task = result.Item;
 
     return {
-        status: 200,
-        body: task,
+        statusCode: 200,
+        body: JSON.stringify(task),
     };
 };
 

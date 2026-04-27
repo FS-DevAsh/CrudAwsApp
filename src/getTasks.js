@@ -11,11 +11,8 @@ const getTasks = async (event) => {
     const tasks = result.Items;
 
     return {
-        status: 200,
-        body:{
-            tasks,
-        }
-        
+        statusCode: 200,
+        body: JSON.stringify({ tasks }),
     };
 };
 

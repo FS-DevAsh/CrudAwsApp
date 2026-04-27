@@ -1,6 +1,5 @@
 const {v4} = require('uuid');
 const AWS = require('aws-sdk');
-const { status } = require('cli');
 
 const addTask = async (event) => {
 
@@ -26,7 +25,7 @@ const addTask = async (event) => {
         .promise();
 
     return {
-        status:200,
+        statusCode: 200,
         body: JSON.stringify(newTask),   
     };
 };
